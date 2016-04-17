@@ -39,6 +39,9 @@ public class MyArrayList<E> implements List<E> {
 		mal.add(2);
 		mal.add(3);
 		System.out.println(Arrays.toString(mal.toArray()) + " size = " + mal.size);
+
+		mal.add(1,5);
+		System.out.println(Arrays.toString(mal.toArray()) + " size = " + mal.size);
 		
 		mal.remove(new Integer(2));
 		System.out.println(Arrays.toString(mal.toArray()) + " size = " + mal.size);
@@ -63,6 +66,20 @@ public class MyArrayList<E> implements List<E> {
 			throw new IndexOutOfBoundsException();
 		}
 		// TODO: fill in the rest of this method
+		List<E> before = subList(0,index);
+		List<E> rest = subList(index,size-1);
+		System.out.println(before);
+		System.out.println(rest);
+
+		System.out.println(Arrays.toString(array));
+		clear();
+		System.out.println(Arrays.toString(array));
+		addAll(before);
+		System.out.println(Arrays.toString(array));
+		add(element);
+		System.out.println(Arrays.toString(array));
+		addAll(rest);
+		System.out.println(Arrays.toString(array));
 	}
 
 	@Override
@@ -112,7 +129,15 @@ public class MyArrayList<E> implements List<E> {
 	@Override
 	public int indexOf(Object target) {
 		// TODO: fill in this method
-		return 0;
+		for (int i = 0; i < size;i++){
+			if(target == null)
+				if(get(i) == null)
+					return i;
+			if(equals(get(i),target))
+				return i;
+		}
+		
+		return -1;
 	}
 
 	/** Checks whether an element of the array is the target.
@@ -202,8 +227,12 @@ public class MyArrayList<E> implements List<E> {
 
 	@Override
 	public E set(int index, E element) {
-		// TODO: fill in this method.
-		return null;
+		if(index < 0 || index >= size)
+			throw new IndexOutOfBoundsException();
+		
+		E prev = array[index];
+		array[index] = element;
+		return prev;
 	}
 
 	@Override
