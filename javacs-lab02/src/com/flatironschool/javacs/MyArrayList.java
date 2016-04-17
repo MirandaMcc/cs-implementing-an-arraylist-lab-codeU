@@ -67,12 +67,11 @@ public class MyArrayList<E> implements List<E> {
 		}
 		// TODO: fill in the rest of this method
 		List<E> before = subList(0,index);
-		List<E> rest = subList(index,size-1);
+		List<E> rest = subList(index,size);
 		System.out.println(before);
 		System.out.println(rest);
 
-		System.out.println(Arrays.toString(array));
-		clear();
+		this.clear();
 		System.out.println(Arrays.toString(array));
 		addAll(before);
 		System.out.println(Arrays.toString(array));
@@ -208,7 +207,24 @@ public class MyArrayList<E> implements List<E> {
 	@Override
 	public E remove(int index) {
 		// TODO: fill in this method.
-		return null;
+		if (index < 0 || index > size) {
+			throw new IndexOutOfBoundsException();
+		}
+		List<E> before = subList(0,index);
+		List<E> rest = subList(index+1,size);
+		System.out.println(before);
+		System.out.println(rest);
+
+		E element = array[index];
+
+		this.clear();
+		System.out.println(Arrays.toString(array));
+		addAll(before);
+		System.out.println(Arrays.toString(array));
+		addAll(rest);
+		System.out.println(Arrays.toString(array));
+
+		return element;
 	}
 
 	@Override
@@ -242,7 +258,7 @@ public class MyArrayList<E> implements List<E> {
 
 	@Override
 	public List<E> subList(int fromIndex, int toIndex) {
-		if (fromIndex < 0 || toIndex >= size || fromIndex > toIndex) {
+		if (fromIndex < 0 || toIndex > size || fromIndex > toIndex) {
 			throw new IndexOutOfBoundsException();
 		}
 		E[] copy = Arrays.copyOfRange(array, fromIndex, toIndex);
